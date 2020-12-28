@@ -40,6 +40,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             credentials.getPassword(),
                             new ArrayList<>()));
         } catch (IOException e) {
+            logger.error("Authentication failed: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

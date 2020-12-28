@@ -51,17 +51,19 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
 		User user = new User();
 		user.setUsername(createUserRequest.getUsername());
-		logger.info("User name set with ", createUserRequest.getUsername());
+		logger.info("User name set with " + createUserRequest.getUsername());
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
 		if (createUserRequest.getPassword().length() < 7
 				|| !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
+			logger.error("Create user request failed with username: " + createUserRequest.getUsername());
 			return ResponseEntity.badRequest().build();
 		}
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 
 		userRepository.save(user);
+		logger.info("New user created with username: " + user.getUsername());
 		return ResponseEntity.ok(user);
 	}
 	
