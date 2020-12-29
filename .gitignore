@@ -18,6 +18,7 @@ buildNumber.properties
 ##############################
 out/
 .idea/
+target/
 .idea_modules/
 *.iml
 *.ipr
